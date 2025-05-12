@@ -104,7 +104,7 @@ def generate_prompt_for_batch(persona_description: str, batch_items: List[Dict],
 
 def get_model_response(prompt: str, expected_count: int) -> Dict:
     """Get a response from the model based on the prompt"""
-    max_retries = 2
+    max_retries = 1
     for attempt in range(max_retries):
         try:
             response = client.chat.completions.create(
@@ -173,6 +173,26 @@ def calculate_scores(answers_by_scale: Dict[str, List[Tuple[int, int]]], scoring
 
     return results
 
+def process_batch_recursive(persona_description: str, batch: List[Dict], batch_num: int,
+                            answers_by_scale: Dict, raw_answers_by_scale: Dict):
+    """Recursively process a batch of questions by splitting it if needed"""
+    if not batch:
+        return
+
+    prompt = generate_prompt_for_batch(persona_description, batch, batch_num)
+    response = get_model_response(prompt, expected_count=len(batch))
+
+    if "answers" in response and len(response["answers"]) == len(batch):
+        process_answers(batch, response["answers"], answers_by_scale, raw_answers_by_scale)
+    elif len(batch) == 1:
+        print(f"❌ Cannot split further. Skipping question: {batch[0]['item']}")
+    else:
+        print(f"⚠ Splitting batch of size {len(batch)} into halves due to failure.")
+        mid = len(batch) // 2
+        first_half = batch[:mid]
+        second_half = batch[mid:]
+        process_batch_recursive(persona_description, first_half, batch_num, answers_by_scale, raw_answers_by_scale)
+        process_batch_recursive(persona_description, second_half, batch_num, answers_by_scale, raw_answers_by_scale)
 
 def process_persona(persona_id: int, persona_description: str):
     """Process a single persona and calculate scores based on the questionnaire"""
@@ -198,35 +218,7 @@ def process_persona(persona_id: int, persona_description: str):
 
     for batch_idx, batch in enumerate(batches):
         print(f"Processing batch {batch_idx + 1}/{len(batches)}...")
-
-        prompt = generate_prompt_for_batch(persona_description, batch, batch_idx + 1)
-        response = get_model_response(prompt, expected_count=len(batch))
-
-        if "answers" in response and len(response["answers"]) == len(batch):
-            process_answers(batch, response["answers"], answers_by_scale, raw_answers_by_scale)
-        else:
-            print(f"⚠ Retrying batch {batch_idx + 1} in halves due to invalid response.")
-
-            mid = len(batch) // 2
-            first_half = batch[:mid]
-            second_half = batch[mid:]
-
-            # First half
-            first_prompt = generate_prompt_for_batch(persona_description, first_half, batch_idx + 1)
-            first_response = get_model_response(first_prompt, expected_count=len(first_half))
-            if "answers" in first_response and len(first_response["answers"]) == len(first_half):
-                process_answers(first_half, first_response["answers"], answers_by_scale, raw_answers_by_scale)
-            else:
-                print("⚠ First half failed.")
-
-            # Second half
-            second_prompt = generate_prompt_for_batch(persona_description, second_half, batch_idx + 1)
-            second_response = get_model_response(second_prompt, expected_count=len(second_half))
-            if "answers" in second_response and len(second_response["answers"]) == len(second_half):
-                process_answers(second_half, second_response["answers"], answers_by_scale, raw_answers_by_scale)
-            else:
-                print("⚠ Second half failed.")
-
+        process_batch_recursive(persona_description, batch, batch_idx + 1, answers_by_scale, raw_answers_by_scale)
         time.sleep(1)
 
     dimension_scores = calculate_scores(answers_by_scale, scoring_keys)
