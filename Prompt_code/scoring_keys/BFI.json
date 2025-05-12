@@ -1,0 +1,178 @@
+{
+    "1": {
+        "reversed": false,
+        "dimension": "Extraversion"
+    },
+    "2": {
+        "reversed": true,
+        "dimension": "Agreeableness"
+    },
+    "3": {
+        "reversed": false,
+        "dimension": "Conscientiousness"
+    },
+    "4": {
+        "reversed": false,
+        "dimension": "Neuroticism"
+    },
+    "5": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "6": {
+        "reversed": true,
+        "dimension": "Extraversion"
+    },
+    "7": {
+        "reversed": false,
+        "dimension": "Agreeableness"
+    },
+    "8": {
+        "reversed": true,
+        "dimension": "Conscientiousness"
+    },
+    "9": {
+        "reversed": true,
+        "dimension": "Neuroticism"
+    },
+    "10": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "11": {
+        "reversed": false,
+        "dimension": "Extraversion"
+    },
+    "12": {
+        "reversed": true,
+        "dimension": "Agreeableness"
+    },
+    "13": {
+        "reversed": false,
+        "dimension": "Conscientiousness"
+    },
+    "14": {
+        "reversed": false,
+        "dimension": "Neuroticism"
+    },
+    "15": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "16": {
+        "reversed": false,
+        "dimension": "Extraversion"
+    },
+    "17": {
+        "reversed": false,
+        "dimension": "Agreeableness"
+    },
+    "18": {
+        "reversed": true,
+        "dimension": "Conscientiousness"
+    },
+    "19": {
+        "reversed": false,
+        "dimension": "Neuroticism"
+    },
+    "20": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "21": {
+        "reversed": true,
+        "dimension": "Extraversion"
+    },
+    "22": {
+        "reversed": false,
+        "dimension": "Agreeableness"
+    },
+    "23": {
+        "reversed": true,
+        "dimension": "Conscientiousness"
+    },
+    "24": {
+        "reversed": true,
+        "dimension": "Neuroticism"
+    },
+    "25": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "26": {
+        "reversed": false,
+        "dimension": "Extraversion"
+    },
+    "27": {
+        "reversed": true,
+        "dimension": "Agreeableness"
+    },
+    "28": {
+        "reversed": false,
+        "dimension": "Conscientiousness"
+    },
+    "29": {
+        "reversed": false,
+        "dimension": "Neuroticism"
+    },
+    "30": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "31": {
+        "reversed": true,
+        "dimension": "Extraversion"
+    },
+    "32": {
+        "reversed": false,
+        "dimension": "Agreeableness"
+    },
+    "33": {
+        "reversed": false,
+        "dimension": "Conscientiousness"
+    },
+    "34": {
+        "reversed": true,
+        "dimension": "Neuroticism"
+    },
+    "35": {
+        "reversed": true,
+        "dimension": "Openness"
+    },
+    "36": {
+        "reversed": false,
+        "dimension": "Extraversion"
+    },
+    "37": {
+        "reversed": true,
+        "dimension": "Agreeableness"
+    },
+    "38": {
+        "reversed": false,
+        "dimension": "Conscientiousness"
+    },
+    "39": {
+        "reversed": false,
+        "dimension": "Neuroticism"
+    },
+    "40": {
+        "reversed": false,
+        "dimension": "Openness"
+    },
+    "41": {
+        "reversed": true,
+        "dimension": "Openness"
+    },
+    "42": {
+        "reversed": false,
+        "dimension": "Agreeableness"
+    },
+    "43": {
+        "reversed": true,
+        "dimension": "Conscientiousness"
+    },
+    "44": {
+        "reversed": false,
+        "dimension": "Openness"
+    }
+}

@@ -1,0 +1,118 @@
+{
+    "1": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "2": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "3": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "4": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "5": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "6": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "7": {
+        "reversed": true,
+        "dimension": "Physical"
+    },
+    "8": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "9": {
+        "reversed": false,
+        "dimension": "Physical"
+    },
+    "10": {
+        "reversed": false,
+        "dimension": "Verbal"
+    },
+    "11": {
+        "reversed": false,
+        "dimension": "Verbal"
+    },
+    "12": {
+        "reversed": false,
+        "dimension": "Verbal"
+    },
+    "13": {
+        "reversed": false,
+        "dimension": "Verbal"
+    },
+    "14": {
+        "reversed": false,
+        "dimension": "Verbal"
+    },
+    "15": {
+        "reversed": false,
+        "dimension": "Anger"
+    },
+    "16": {
+        "reversed": false,
+        "dimension": "Anger"
+    },
+    "17": {
+        "reversed": false,
+        "dimension": "Anger"
+    },
+    "18": {
+        "reversed": true,
+        "dimension": "Anger"
+    },
+    "19": {
+        "reversed": false,
+        "dimension": "Anger"
+    },
+    "20": {
+        "reversed": false,
+        "dimension": "Anger"
+    },
+    "21": {
+        "reversed": false,
+        "dimension": "Anger"
+    },
+    "22": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "23": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "24": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "25": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "26": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "27": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "28": {
+        "reversed": false,
+        "dimension": "Hostility"
+    },
+    "29": {
+        "reversed": false,
+        "dimension": "Hostility"
+    }
+}
