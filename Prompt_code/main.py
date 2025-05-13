@@ -5,7 +5,7 @@ import argparse
 import asyncio
 import logging
 from typing import List, Dict, Tuple
-from openai import OpenAI
+from openai import AsyncOpenAI
 from huggingface_hub import hf_hub_download
 from tqdm import tqdm
 import re
@@ -25,8 +25,8 @@ answers = {
     "Definitely yes": 5,
 }
 
-# OpenAI client setup
-client = OpenAI(
+# AsyncOpenAI client setup
+client = AsyncOpenAI(
     base_url="http://127.0.0.1:1234/v1",
     api_key="None",  # Use None because it's a local server
 )
@@ -48,7 +48,7 @@ def download_elite_personas():
 
 file_path = "elite_personas.part1.jsonl"
 if not os.path.exists(file_path):
-    logger.info("📦 %s not found locally. Downloading from Hugging Face...", file_path)
+    logger.critical("📦 %s not found locally. Downloading from Hugging Face...", file_path)
     downloaded_path = download_elite_personas()
     if downloaded_path:
         file_path = downloaded_path
@@ -122,7 +122,7 @@ async def get_model_response(prompt: str, expected_count: int) -> Dict:
     max_retries = 1
     for attempt in range(max_retries):
         try:
-            response = await client.chat.completions.acreate(
+            response = await client.chat.completions.create(
                 model="meta-llama-3.1-8b-instruct",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0,
@@ -158,7 +158,7 @@ async def get_model_response(prompt: str, expected_count: int) -> Dict:
                 "❌ Error during model response (attempt %d): %s", attempt + 1, e
             )
 
-        logger.info("🔁 Retrying with the same prompt...")
+        logger.debug("🔁 Retrying with the same prompt...")
         await asyncio.sleep(0.1)  # Reduced wait time for faster throughput
 
     return {"answers": []}
@@ -358,7 +358,7 @@ async def async_main(args):
     await asyncio.gather(*(run_with_sem(task) for task in tasks))
 
     progress_bar.close()
-    logger.info("✔ Done. Results saved.")
+    logger.critical("✔ Done. Results saved.")
 
 
 def main():
