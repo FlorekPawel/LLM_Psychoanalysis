@@ -133,7 +133,7 @@ async def get_model_response(prompt: str, expected_count: int) -> Dict:
             match = re.search(r"\{.*\}", response_text, re.DOTALL)
             if not match:
                 logger.error("❌ No JSON found in response.")
-                continue
+                return {"answers": []}
 
             response_json = json.loads(match.group(0))
 
@@ -148,8 +148,10 @@ async def get_model_response(prompt: str, expected_count: int) -> Dict:
                         "❌ Invalid answers (wrong count or value out of 1-5): %s",
                         resp_answers,
                     )
+                    return {"answers": []}
             else:
                 logger.error("❌ 'answers' key not found in response.")
+                return {"answers": []}
 
         except Exception as e:
             logger.error(
