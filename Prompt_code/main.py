@@ -284,7 +284,12 @@ def main():
 
     num_personas = len(df)
 
-    progress_bar = tqdm(desc="Total progress", total=args.end)
+    j = 0
+    for i in range(args.end):
+        if i in processed_ids:
+            j += 1
+
+    progress_bar = tqdm(desc="Total progress", total=args.end, initial=j)
 
     def perform_experiment(i: int):
         persona_description = df.iloc[i, 0]
@@ -299,10 +304,7 @@ def main():
             progress_bar.update(1)
             progress_bar.refresh()
 
-    for i in range(args.end):
-        if i in processed_ids:
             progress_bar.update(1)
-    progress_bar.refresh()
 
     with ThreadPoolExecutor(args.n_jobs) as executor:
         futures = [executor.submit(perform_experiment, i) for i in range(args.end) if i not in processed_ids]
