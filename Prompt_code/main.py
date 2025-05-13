@@ -251,12 +251,18 @@ def main():
         default=1,
         help="Numer of concurent threadas (optional).",
     )
+    parser.add_argument(
+        "--results-dir",
+        type=str,
+        help="Results dir (relative).",
+        required=True
+    )
     args = parser.parse_args()
 
-    results_dir = "persona_results"
+    results_dir = os.path.join("persona_results", args.results_dir)
     os.makedirs(results_dir, exist_ok=True)
 
-    checkpoint_file = "all_personas_results.jsonl"
+    checkpoint_file = os.path.join(results_dir, "all_personas_results.jsonl")
     processed_ids = set()
 
     if os.path.exists(checkpoint_file):
