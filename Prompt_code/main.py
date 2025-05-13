@@ -2,6 +2,8 @@ import json
 import os
 import pandas as pd
 import time
+import argparse
+from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict, Any, Tuple
 from openai import OpenAI
 from huggingface_hub import hf_hub_download
@@ -214,10 +216,8 @@ def process_persona(persona_id: int, persona_description: str):
     answers_by_scale = {}
     raw_answers_by_scale = {}
 
-    print(f"\nProcessing {len(batches)} batches of questions for persona {persona_id}...")
-
     for batch_idx, batch in enumerate(batches):
-        print(f"Processing batch {batch_idx + 1}/{len(batches)}...")
+        print(f"Persona {persona_id}: processing batch {batch_idx + 1}/{len(batches)}...")
         process_batch_recursive(persona_description, batch, batch_idx + 1, answers_by_scale, raw_answers_by_scale)
         time.sleep(1)
 
@@ -242,6 +242,17 @@ def process_answers(batch: List[Dict], answers: List[int], answers_by_scale: Dic
 
 def main():
     """Main function to process all personas and save results"""
+    parser = argparse.ArgumentParser(
+        description="Perform experiments."
+    )
+    parser.add_argument(
+        "--n-jobs",
+        type=int,
+        default=1,
+        help="Numer of concurent threadas (optional).",
+    )
+    args = parser.parse_args()
+
     results_dir = "persona_results"
     os.makedirs(results_dir, exist_ok=True)
 
@@ -260,10 +271,7 @@ def main():
 
     num_personas = len(df)
 
-    for i in range(num_personas):
-        if i in processed_ids:
-            continue  # Skip already processed personas
-
+    def perform_experiment(i: int):
         persona_description = df.iloc[i, 0]
         print(f"\n=== Persona {i} ===\n{persona_description}\n")
 
@@ -277,6 +285,10 @@ def main():
             individual_file = os.path.join(results_dir, f"persona_{i}_results.jsonl")
             with open(individual_file, "w", encoding="utf-8") as f:
                 f.write(json.dumps(result, ensure_ascii=False) + "\n")
+
+    with ThreadPoolExecutor(args.n_jobs) as executor:
+        futures = [executor.submit(perform_experiment, i) for i in range(num_personas) if i not in processed_ids]
+        [f.result() for f in futures]
 
     print("\n✔ Done. Results saved.")
 
