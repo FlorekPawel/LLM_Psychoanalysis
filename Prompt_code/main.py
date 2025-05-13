@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict, Any, Tuple
 from openai import OpenAI
 from huggingface_hub import hf_hub_download
+from tqdm import tqdm
 
 # Questionnaire answer scale
 answers = {
@@ -252,6 +253,12 @@ def main():
         help="Numer of concurent threadas (optional).",
     )
     parser.add_argument(
+        "--end",
+        type=int,
+        default=300,
+        help="Numer of personas to calculate.",
+    )
+    parser.add_argument(
         "--results-dir",
         type=str,
         help="Results dir (relative).",
@@ -277,6 +284,8 @@ def main():
 
     num_personas = len(df)
 
+    progress_bar = tqdm(desc="Total progress", total=args.end)
+
     def perform_experiment(i: int):
         persona_description = df.iloc[i, 0]
         print(f"\n=== Persona {i} ===\n{persona_description}\n")
@@ -286,14 +295,17 @@ def main():
             # Append to global JSONL results file
             with open(checkpoint_file, "a", encoding="utf-8") as f:
                 f.write(json.dumps(result, ensure_ascii=False) + "\n")
+            
+            progress_bar.update(1)
+            progress_bar.refresh()
 
-            # Save individual result in JSONL format
-            individual_file = os.path.join(results_dir, f"persona_{i}_results.jsonl")
-            with open(individual_file, "w", encoding="utf-8") as f:
-                f.write(json.dumps(result, ensure_ascii=False) + "\n")
+    for i in range(args.end):
+        if i in processed_ids:
+            progress_bar.update(1)
+    progress_bar.refresh()
 
     with ThreadPoolExecutor(args.n_jobs) as executor:
-        futures = [executor.submit(perform_experiment, i) for i in range(num_personas) if i not in processed_ids]
+        futures = [executor.submit(perform_experiment, i) for i in range(args.end) if i not in processed_ids]
         [f.result() for f in futures]
 
     print("\n✔ Done. Results saved.")
