@@ -31,7 +31,6 @@ client = AsyncOpenAI(
     api_key="None",  # Use None because it's a local server
 )
 
-
 def download_elite_personas():
     """Download the elite_personas dataset from Hugging Face"""
     try:
@@ -44,7 +43,6 @@ def download_elite_personas():
     except Exception as e:
         logger.error("❌ Failed to download file from Hugging Face: %s", e)
         return None
-
 
 file_path = "elite_personas.part1.jsonl"
 if not os.path.exists(file_path):
@@ -59,7 +57,6 @@ if not os.path.exists(file_path):
 
 df = pd.read_json(file_path, lines=True, nrows=5000)
 df = df.iloc[:, [0]]  # Keep only the first column with persona descriptions
-
 
 def load_questionnaires():
     """Load questionnaire items from JSON file"""
@@ -77,7 +74,6 @@ def load_questionnaires():
         logger.error("Error loading questionnaire data: %s", e)
         return []
 
-
 def load_scoring_keys(scoring_dir: str = "scoring_keys") -> Dict[str, Dict]:
     """Load scoring keys for each scale from JSON files"""
     scales = ["BFI", "PANAS", "BPAQ", "SSCS"]
@@ -91,7 +87,6 @@ def load_scoring_keys(scoring_dir: str = "scoring_keys") -> Dict[str, Dict]:
             logger.error("Error loading scoring key for %s: %s", scale, e)
             scoring_keys[scale] = {}
     return scoring_keys
-
 
 def generate_prompt_for_batch(
     persona_description: str, batch_items: List[Dict], batch_num: int
@@ -115,7 +110,6 @@ def generate_prompt_for_batch(
         + '\n\nReturn only the JSON object in the format: {"answers": [n, n, n, ...]} where n is a number from 1-5.'
     )
     return prompt
-
 
 async def get_model_response(prompt: str, expected_count: int) -> Dict:
     """Asynchronously get a response from the model based on the prompt"""
@@ -163,7 +157,6 @@ async def get_model_response(prompt: str, expected_count: int) -> Dict:
 
     return {"answers": []}
 
-
 def calculate_scores(
     answers_by_scale: Dict[str, List[Tuple[int, int]]], scoring_keys: Dict
 ) -> Dict[str, Dict[str, Dict[str, float]]]:
@@ -197,7 +190,6 @@ def calculate_scores(
 
     return results
 
-
 def process_answers(
     batch: List[Dict],
     answers_list: List[int],
@@ -210,7 +202,6 @@ def process_answers(
 
         answers_by_scale.setdefault(scale, []).append((original_index, answer))
         raw_answers_by_scale.setdefault(scale, []).append(answer)
-
 
 async def process_batch_recursive(
     persona_description: str,
@@ -254,8 +245,7 @@ async def process_batch_recursive(
             raw_answers_by_scale,
         )
 
-
-async def process_persona(persona_id: int, persona_description: str):
+async def process_persona(persona_id: int, persona_description: str, batch_size: int):
     """Process a single persona and calculate scores based on the questionnaire"""
     questionnaire_items = load_questionnaires()
     scoring_keys = load_scoring_keys()
@@ -269,7 +259,7 @@ async def process_persona(persona_id: int, persona_description: str):
         "scores": {},
     }
 
-    batch_size = 8  # Number of questions per batch
+    # Use batch_size from argument instead of hard-coded 8
     batches = [
         questionnaire_items[i : i + batch_size]
         for i in range(0, len(questionnaire_items), batch_size)
@@ -303,21 +293,18 @@ async def process_persona(persona_id: int, persona_description: str):
 
     return results
 
-
 def write_result(checkpoint_file: str, result: Dict):
     with open(checkpoint_file, "a", encoding="utf-8") as f:
         f.write(json.dumps(result, ensure_ascii=False) + "\n")
 
-
-async def perform_experiment(i: int, checkpoint_file: str, progress_bar) -> None:
+async def perform_experiment(i: int, checkpoint_file: str, progress_bar, batch_size: int) -> None:
     persona_description = df.iloc[i, 0]
     logger.info("=== Persona %d ===\n%s", i, persona_description)
 
-    result = await process_persona(i, persona_description)
+    result = await process_persona(i, persona_description, batch_size)
     if result:
         await asyncio.to_thread(write_result, checkpoint_file, result)
         progress_bar.update(1)
-
 
 async def async_main(args):
     results_dir = os.path.join("persona_results", args.results_dir)
@@ -336,7 +323,6 @@ async def async_main(args):
                     continue
         logger.info("▶ Resumed from %d processed personas.", len(processed_ids))
 
-    # Count already processed personas for progress bar initialization
     total_personas = args.end
     initial_processed = sum(1 for i in range(total_personas) if i in processed_ids)
     progress_bar = tqdm(
@@ -346,7 +332,7 @@ async def async_main(args):
     tasks = []
     for i in range(total_personas):
         if i not in processed_ids:
-            tasks.append(perform_experiment(i, checkpoint_file, progress_bar))
+            tasks.append(perform_experiment(i, checkpoint_file, progress_bar, args.batch_size))
 
     # Run tasks concurrently with a maximum of args.n_jobs tasks at once
     sem = asyncio.Semaphore(args.n_jobs)
@@ -359,7 +345,6 @@ async def async_main(args):
 
     progress_bar.close()
     logger.critical("✔ Done. Results saved.")
-
 
 def main():
     parser = argparse.ArgumentParser(description="Perform experiments.")
@@ -378,9 +363,12 @@ def main():
         default="INFO",
         help="Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL).",
     )
+    # New argument for batch_size
+    parser.add_argument(
+        "--batch-size", type=int, default=8, help="Number of questions per batch (default: 8)."
+    )
     args = parser.parse_args()
 
-    # Update logging level based on args
     numeric_level = getattr(logging, args.loglevel.upper(), None)
     if isinstance(numeric_level, int):
         logging.getLogger().setLevel(numeric_level)
@@ -388,7 +376,6 @@ def main():
         logger.error("Invalid log level: %s", args.loglevel)
 
     asyncio.run(async_main(args))
-
 
 if __name__ == "__main__":
     main()
