@@ -277,7 +277,7 @@ async def process_persona(persona_id: int, persona_description: str):
     raw_answers_by_scale = {}
 
     for batch_idx, batch in enumerate(batches):
-        logger.critical(
+        logger.info(
             "Persona %d: processing batch %d/%d...",
             persona_id,
             batch_idx + 1,
