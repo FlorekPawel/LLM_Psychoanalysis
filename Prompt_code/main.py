@@ -314,7 +314,7 @@ async def async_main(args):
     processed_ids = set()
 
     if os.path.exists(checkpoint_file):
-        with open(checkpoint_file, "r") as f:
+        with open(checkpoint_file, "r", encoding="utf-8") as f:
             for line in f:
                 try:
                     data = json.loads(line)
