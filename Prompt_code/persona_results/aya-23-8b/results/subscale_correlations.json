@@ -1,0 +1,85 @@
+{
+  "BFI": {
+    "Extraversion": {
+      "Extraversion": 1.0,
+      "Agreeableness": 0.1582,
+      "Conscientiousness": 0.1415,
+      "Neuroticism": -0.069,
+      "Openness": 0.2907
+    },
+    "Agreeableness": {
+      "Extraversion": 0.1582,
+      "Agreeableness": 1.0,
+      "Conscientiousness": -0.1048,
+      "Neuroticism": -0.0445,
+      "Openness": 0.163
+    },
+    "Conscientiousness": {
+      "Extraversion": 0.1415,
+      "Agreeableness": -0.1048,
+      "Conscientiousness": 1.0,
+      "Neuroticism": -0.3916,
+      "Openness": 0.0078
+    },
+    "Neuroticism": {
+      "Extraversion": -0.069,
+      "Agreeableness": -0.0445,
+      "Conscientiousness": -0.3916,
+      "Neuroticism": 1.0,
+      "Openness": 0.1418
+    },
+    "Openness": {
+      "Extraversion": 0.2907,
+      "Agreeableness": 0.163,
+      "Conscientiousness": 0.0078,
+      "Neuroticism": 0.1418,
+      "Openness": 1.0
+    }
+  },
+  "PANAS": {
+    "Positive": {
+      "Positive": 1.0,
+      "Negative": -0.3746
+    },
+    "Negative": {
+      "Positive": -0.3746,
+      "Negative": 1.0
+    }
+  },
+  "BPAQ": {
+    "Physical": {
+      "Physical": 1.0,
+      "Verbal": 0.1424,
+      "Anger": 0.1097,
+      "Hostility": 0.0876
+    },
+    "Verbal": {
+      "Physical": 0.1424,
+      "Verbal": 1.0,
+      "Anger": 0.0887,
+      "Hostility": 0.1001
+    },
+    "Anger": {
+      "Physical": 0.1097,
+      "Verbal": 0.0887,
+      "Anger": 1.0,
+      "Hostility": 0.0536
+    },
+    "Hostility": {
+      "Physical": 0.0876,
+      "Verbal": 0.1001,
+      "Anger": 0.0536,
+      "Hostility": 1.0
+    }
+  },
+  "SSCS": {
+    "Personal Identity": {
+      "Personal Identity": 1.0,
+      "Self-efficacy": 0.5479
+    },
+    "Self-efficacy": {
+      "Personal Identity": 0.5479,
+      "Self-efficacy": 1.0
+    }
+  }
+}

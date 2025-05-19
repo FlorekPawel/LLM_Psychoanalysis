@@ -1,0 +1,202 @@
+[
+  {
+    "Construct": "PANAS - Positive",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": 0.0395
+  },
+  {
+    "Construct": "PANAS - Positive",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": 0.0005
+  },
+  {
+    "Construct": "PANAS - Positive",
+    "Big Five Trait": "Extraversion",
+    "Correlation": 0.4653
+  },
+  {
+    "Construct": "PANAS - Positive",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": -0.2225
+  },
+  {
+    "Construct": "PANAS - Positive",
+    "Big Five Trait": "Openness",
+    "Correlation": 0.4108
+  },
+  {
+    "Construct": "PANAS - Negative",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": 0.0898
+  },
+  {
+    "Construct": "PANAS - Negative",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": -0.343
+  },
+  {
+    "Construct": "PANAS - Negative",
+    "Big Five Trait": "Extraversion",
+    "Correlation": 0.0291
+  },
+  {
+    "Construct": "PANAS - Negative",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": 0.0933
+  },
+  {
+    "Construct": "PANAS - Negative",
+    "Big Five Trait": "Openness",
+    "Correlation": -0.0037
+  },
+  {
+    "Construct": "BPAQ - Physical",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": -0.0255
+  },
+  {
+    "Construct": "BPAQ - Physical",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": -0.0548
+  },
+  {
+    "Construct": "BPAQ - Physical",
+    "Big Five Trait": "Extraversion",
+    "Correlation": 0.0491
+  },
+  {
+    "Construct": "BPAQ - Physical",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": 0.064
+  },
+  {
+    "Construct": "BPAQ - Physical",
+    "Big Five Trait": "Openness",
+    "Correlation": 0.0217
+  },
+  {
+    "Construct": "BPAQ - Verbal",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": 0.0892
+  },
+  {
+    "Construct": "BPAQ - Verbal",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": 0.1574
+  },
+  {
+    "Construct": "BPAQ - Verbal",
+    "Big Five Trait": "Extraversion",
+    "Correlation": -0.0523
+  },
+  {
+    "Construct": "BPAQ - Verbal",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": -0.0315
+  },
+  {
+    "Construct": "BPAQ - Verbal",
+    "Big Five Trait": "Openness",
+    "Correlation": -0.0039
+  },
+  {
+    "Construct": "BPAQ - Anger",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": -0.028
+  },
+  {
+    "Construct": "BPAQ - Anger",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": -0.149
+  },
+  {
+    "Construct": "BPAQ - Anger",
+    "Big Five Trait": "Extraversion",
+    "Correlation": -0.0435
+  },
+  {
+    "Construct": "BPAQ - Anger",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": 0.1142
+  },
+  {
+    "Construct": "BPAQ - Anger",
+    "Big Five Trait": "Openness",
+    "Correlation": 0.0398
+  },
+  {
+    "Construct": "BPAQ - Hostility",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": 0.0329
+  },
+  {
+    "Construct": "BPAQ - Hostility",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": -0.1994
+  },
+  {
+    "Construct": "BPAQ - Hostility",
+    "Big Five Trait": "Extraversion",
+    "Correlation": -0.0091
+  },
+  {
+    "Construct": "BPAQ - Hostility",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": 0.3035
+  },
+  {
+    "Construct": "BPAQ - Hostility",
+    "Big Five Trait": "Openness",
+    "Correlation": -0.003
+  },
+  {
+    "Construct": "SSCS - Personal Identity",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": -0.1476
+  },
+  {
+    "Construct": "SSCS - Personal Identity",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": -0.218
+  },
+  {
+    "Construct": "SSCS - Personal Identity",
+    "Big Five Trait": "Extraversion",
+    "Correlation": 0.3151
+  },
+  {
+    "Construct": "SSCS - Personal Identity",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": -0.121
+  },
+  {
+    "Construct": "SSCS - Personal Identity",
+    "Big Five Trait": "Openness",
+    "Correlation": 0.6987
+  },
+  {
+    "Construct": "SSCS - Self-efficacy",
+    "Big Five Trait": "Agreeableness",
+    "Correlation": -0.2703
+  },
+  {
+    "Construct": "SSCS - Self-efficacy",
+    "Big Five Trait": "Conscientiousness",
+    "Correlation": -0.1177
+  },
+  {
+    "Construct": "SSCS - Self-efficacy",
+    "Big Five Trait": "Extraversion",
+    "Correlation": 0.289
+  },
+  {
+    "Construct": "SSCS - Self-efficacy",
+    "Big Five Trait": "Neuroticism",
+    "Correlation": -0.1383
+  },
+  {
+    "Construct": "SSCS - Self-efficacy",
+    "Big Five Trait": "Openness",
+    "Correlation": 0.662
+  }
+]

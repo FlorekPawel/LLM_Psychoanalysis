@@ -1,0 +1,75 @@
+{
+  "BFI": {
+    "Agreeableness": {
+      "Cronbach's Alpha": 0.23045133191032585,
+      "GLB": 0.23268658453221686,
+      "Omega": 0.13051055712238824
+    },
+    "Conscientiousness": {
+      "Cronbach's Alpha": 0.16911278831043255,
+      "GLB": 0.30815746353027107,
+      "Omega": 0.3666097955152398
+    },
+    "Extraversion": {
+      "Cronbach's Alpha": 0.2411266464160718,
+      "GLB": 0.28513285345680633,
+      "Omega": NaN
+    },
+    "Neuroticism": {
+      "Cronbach's Alpha": 0.107826991418913,
+      "GLB": 0.3727109194791653,
+      "Omega": 0.1536124860021541
+    },
+    "Openness": {
+      "Cronbach's Alpha": 0.15854235283569823,
+      "GLB": 0.23593267824740966,
+      "Omega": 0.16185914290714243
+    }
+  },
+  "PANAS": {
+    "Negative": {
+      "Cronbach's Alpha": 0.358025461446108,
+      "GLB": 0.4210842720110804,
+      "Omega": 0.0008348923106732012
+    },
+    "Positive": {
+      "Cronbach's Alpha": 0.535923038981517,
+      "GLB": 0.5763351675390916,
+      "Omega": 0.6160755700412096
+    }
+  },
+  "BPAQ": {
+    "Anger": {
+      "Cronbach's Alpha": -0.4174514868829805,
+      "GLB": 0.5984070240033315,
+      "Omega": 0.09348162775700292
+    },
+    "Hostility": {
+      "Cronbach's Alpha": 0.40673906715583574,
+      "GLB": 0.5614540391780221,
+      "Omega": NaN
+    },
+    "Physical": {
+      "Cronbach's Alpha": 0.06440650667045217,
+      "GLB": 0.37470028301674735,
+      "Omega": 0.3284337788532859
+    },
+    "Verbal": {
+      "Cronbach's Alpha": 0.40245166292205914,
+      "GLB": 0.6060175835826559,
+      "Omega": 0.10958019657793007
+    }
+  },
+  "SSCS": {
+    "Personal Identity": {
+      "Cronbach's Alpha": 0.5215843151046247,
+      "GLB": 0.504356532668808,
+      "Omega": 0.5677053210785219
+    },
+    "Self-efficacy": {
+      "Cronbach's Alpha": 0.51192005710207,
+      "GLB": 0.5359325310486244,
+      "Omega": NaN
+    }
+  }
+}
