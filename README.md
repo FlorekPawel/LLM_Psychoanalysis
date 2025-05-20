@@ -17,5 +17,5 @@ The number of personas to use during prompting. The process will stop after gene
 -	--batch_size batch_size
 The size of each batch. Questionnaires will be split into batches of this size to optimize model performance.
 
-plot_data.py will generate data necessary for plot generation from prompting results.
-generate_plots.py will generate plots based on the results from the plot_data.py.
+`plot_data.py` will generate data necessary for plot generation from prompting results.
+`generate_plots.py` will generate plots based on the results from the `plot_data.py`.
