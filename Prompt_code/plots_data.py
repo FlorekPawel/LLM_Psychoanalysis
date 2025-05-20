@@ -235,8 +235,8 @@ def prepare_criterion_validity_data(
         logger.error(f"Failed to write criterion validity JSON: {e}")
 
 def process_all_models(
-    root_dir: str = "persona_results",
-    scoring_keys_dir: str = "scoring_keys"
+    root_dir: str = "./persona_results",
+    scoring_keys_dir: str = "./scoring_keys"
 ) -> None:
     scoring_keys = load_scoring_keys(scoring_keys_dir)
 
@@ -276,4 +276,4 @@ def process_all_models(
 
 
 if __name__ == "__main__":
-    process_all_models("persona_results", "scoring_keys")
+    process_all_models("./Prompt_code/persona_results", "./Prompt_code/scoring_keys")

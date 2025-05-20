@@ -201,7 +201,7 @@ def generate_crit_val_plot(result_path, model_name):
 def main():
     for model_name in os.listdir("./Prompt_code/persona_results"):
         results_path = os.path.join("./Prompt_code/persona_results", model_name, "results")
-        os.makedirs(os.path.join("plots", model_name), exist_ok=True)
+        os.makedirs(os.path.join("./Prompt_code/plots", model_name), exist_ok=True)
 
         generate_distribution_plots(results_path, model_name)
         generate_reliability_coeff_plots(results_path, model_name)
