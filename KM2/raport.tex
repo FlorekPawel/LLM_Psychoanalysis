@@ -88,7 +88,7 @@ W przeprowadzonych badaniach użyto następujących modeli:
 \begin{itemize}
     \item Aya 23 8B - model firmy AYA AI. Został wytrenowany na różnorodnych danych wielojęzycznych open-source z naciskiem na inkluzywność językową (ponad 50 języków). Złożony z Decoder-only Transformer z mechanizmem Multi-Query Attention (MQA).
     \item Granite 3.3 8B Instruct - model firmy IBM. Model koncentruje się na języku angielskim z naciskiem na zastosowania korporacyjne i zadania wymagające precyzyjnego rozumienia instrukcji. Złożony z transformerów z Grouped-Query Attention (GQA)
-    \item Internlm 3 8B Instruct - chiński model opracowany przez Shanghai AI Laboratory. Model został wytrenowany na danych zarówno chińskich jak i angielskich. Wykorzystano (MQA).
+    \item Internlm 3 8B Instruct - chiński model opracowany przez Shanghai AI Laboratory. Model został wytrenowany na danych zarówno chińskich jak i angielskich. Wykorzystano (GQA).
     \item Ministral 8B Instruct - francuski model firmy Mistral AI. Bazuje na architekturze Transformer, ale wprowadza efektywne mechanizmy uwagi, takie jak Sliding Window Attention. 
     \item Qwen 3 8B Instruct - chiński model opracowany przez Alibaba Cloud. Wykorzystuje GQA.
     \item Llama 3.1 8B Instruct - model firmy Meta AI. Model skupiony na języku angielskim. Wykorzystuje Decoder-only Transformer z GQA \\
@@ -142,20 +142,60 @@ W trakcie realizacji badań napotkano kilka istotnych trudności. Przede wszystk
 
 Dodatkową komplikacją był sposób działania aplikacji LM Studio, za pośrednictwem której uruchamiano modele. Z nieznanych przyczyn modele nie wykorzystywały pełnej mocy obliczeniowej GPU, opierając się głównie na CPU, co znacząco wpłynęło na wydajność. Pomimo prób rozwiązania tego problemu, nie udało się wymusić pełnego wykorzystania akceleracji sprzętowej.
 
-Kolejnym problemem była ograniczona zdolność modeli do generowania poprawnych i spójnych odpowiedzi przy zbyt dużej liczbie pytań zadanych jednocześnie. Aby temu przeciwdziałać, zastosowano podział kwestionariuszy na mniejsze partie (batche), co pozwoliło utrzymać jakość i zgodność odpowiedzi z wymaganym formatem.
+Kolejnym problemem była ograniczona zdolność modeli do generowania poprawnych i spójnych odpowiedzi przy zbyt dużej liczbie pytań zadanych jednocześnie. Aby temu przeciwdziałać, zastosowano podział kwestionariuszy na mniejsze partie (batche), co pozwoliło utrzymać jakość i zgodność odpowiedzi z wymaganym formatem. Jednak dalej można poddać pod wątpliwość jakość tychże odpowiedzi
 
 \subsection{Cel i opis eksperymentu}
-Celem przeprowadzonego eksperymentu było zebranie odpowiedzi dużych modeli językowych na wybrane kwestionariusze psychologiczne, a następnie analiza tych odpowiedzi pod kątem ich psychometrycznej poprawności oraz podobieństwa do wyników uzyskiwanych przez ludzi.
+Celem przeprowadzonego eksperymentu było zebranie odpowiedzi dużych modeli językowych na wybrane kwestionariusze psychologiczne, a następnie analiza tych odpowiedzi pod kątem ich psychometrycznej poprawności oraz podobieństwa do wyników uzyskiwanych przez ludzi. Docelowo przetestowane zostanie po 5000 osobowości na model.
 
 Do eksperymentu losowo wybrano zbiór profili osobowości (person), pochodzących z zestawu PersonaHub: Elite Persona. Dla każdego z nich, przy użyciu wcześniej opisanego prompta, generowano odpowiedzi na pytania kwestionariuszy.
 
-Na podstawie uzyskanych danych obliczono podstawowe wskaźniki rzetelności psychometrycznej: alfa Cronbacha, Greatest Lower Bound (GLB) oraz omega McDonalda.
+Na podstawie uzyskanych danych obliczono podstawowe wskaźniki rzetelności psychometrycznej: alfa Cronbacha (miara rzetelności (spójności wewnętrznej) kwestionariusza psychometrycznego), Greatest Lower Bound (GLB, największa dolna granica, próbuje oszacować najwyższą możliwą dolną granicę wartości alfy Cronbacha, gdyby założenia były idealne) oraz omega McDonalda (miara rzetelności (spójności), dokładniejsza niż alfa Cronbacha, uwzględnia jakość pytań, co często zwiększa skuteczność). Dla tych metryk pożądana wartość należy do przedziału [0.7, 0.9].
 
 Dodatkowo, przeanalizowano korelacje między odpowiedziami udzielonymi przez modele a danymi referencyjnymi uzyskanymi od ludzi. W tym celu wyznaczono współczynniki korelacji Pearsona oraz przeprowadzono analizę rozkładu odpowiedzi modeli.
 
-Wybrano taki cel by przetestować LLM w tego typu testach, a następnie przeanaliwać wyniki pod kątem zdolności do odwzorowywania
+Wybrano taki cel by przetestować LLM w tego typu testach, a następnie przeanaliwać wyniki pod kątem zdolności do odwzorowywania.
 
 \section{Wyniki eksperymentu}
+Zanim przejdziemy do wyników modeli w poszczególnych kwestionariuszach, przyjrzyjmy się jakości naszego testu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/aya-23-8b/bfi_reliability.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/granite-3.3-8b-instruct/bfi_reliability.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/internlm3-8b-instruct/bfi_reliability.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/meta-llama-3.1-8B-instruct/bfi_reliability.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/ministral-8b-instruct-2410/bfi_reliability.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/qwen-3-8b-instruct/bfi_reliability.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{./article_data/human_distr.png}
+\end{figure}
+
+Wyniki w podanych miarach mogą nie napawać optymizmem. Tylko niektóre modele zbliżają się do granicy o wartości 0.7. Mając jednak na uwadze ograniczenie naszych modeli oraz skuteczność wykorzystanych kwestionariuszy, musimy stwierdzić winę w modelach. \\
+
+
 Wyniki naszego eksperymentu będziemy porównywać z wynikami ludzkimi oraz modeli autorów przytaczanego artykułu, których wykresy są zaczerpnięte z artykułu. 
 W wynikach skupimy się na BFI z uwagi na to, że był głównie wykorzystany w artykule i będziemy mieli oczywiste porównanie wyników obu eksperymentów.
 
@@ -194,14 +234,17 @@ Przeanalizujemy na początek dystrybucje odpowiedzi modeli dla poszczególnych k
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7 \linewidth]{./article_data/human_distr.png}
-    \caption{Wyniki twórców}
 \end{figure}
 
-Zauważyć można różne dystrybucje w przypadku różnych modeli. Pare modeli ma podobny rozkład w tych samym atrybutach, jednak brak takich, które w każdym atrybucie miałyby taki sam rozkład odpowiedzi. 
+Zauważyć można różne dystrybucje w przypadku różnych modeli. Pare modeli ma podobną dystrybucje w tych samym atrybutach, jednak brak takich, które w każdym atrybucie miałyby taki sam rozkład odpowiedzi. \\
+W przypadku Agreeableness modele w większości odpowiadały 5, wyjątkiem jest InternLM, który najczęściej odpowiada 4. \\
+Dla Conscientiousness wszsytkie modele odpowiadały podobnie, poza Ministral, który nie udzielał odpowiedzi 4. \\
+Dystrybucja Extraversion dystrubucja jest stosunkowo wyrównania po środku w odpowiedziach 2, 3 i 4. \\
+W Neuroticism odpowiedzi są średnio niższe, praktycznie bez 5. \\
+Openenness nie ma stałej struktury, modele poróżniły się dla tej cechy. \\
+Porównując z odpowiedziami ludzi, ciężko o pełne podobieństwo i w przeważającej większości dystrybucje różnią się.  Jednak dla pojedyńczych dystrybucji jest bardzo duże podobnieństwo.\\ \\ 
 
-Porównując z odpowiedziami ludzi, ciężko o podobieństwo i w przeważającej większości dystrybucje bardzo różnia się. \\ \\ 
-
-Ważną kwestią jest porównianie korelacji odpowiedzi dla atrybutów na tle korelacji w odpowiedziach ludzi. Pokaże to, czy modele są wyuczone zależności, które nie występują w rzeczywistości.
+Kolejną ważną kwestią jest porównianie korelacji odpowiedzi dla atrybutów na tle korelacji w odpowiedziach ludzi. Pokaże to, czy modele są wyuczone zależności, które nie występują w rzeczywistości.
 
 \begin{figure}[H]
     \centering
@@ -236,15 +279,69 @@ Ważną kwestią jest porównianie korelacji odpowiedzi dla atrybutów na tle ko
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7 \linewidth]{./article_data/all_corr.png}
-    \caption{Wyniki twórców}
 \end{figure}
-W niektórych modelach (np. Llama) występują korelacje pomiędzy neurotyzmem a innymi cechami, tak samo jak w przypadku przytaczanego artykułu. W paru innych pojawiły się korelacje związane z cechą sumienności, która nie występowała wcześniej.  
 
+Dla Neuroticism korelacje wyników modeli przypominają te ludzkie. Reszta korelacji nie przekracza w wartości bezwzględnej 0.4. Jednak patrząc ogólnie wartości są wyższe niż dla wyników ludzkich, co pokrywa się z wynikami otrzymanami przez autorów przytaczanego artykułu, chociaż u nich wartości były dodatnie.
+
+Poniżej przedstawiono analizę Korelacji Pearsona pomiędzy kwestionariusza.
+\newpage
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Prompt_code/plots/aya-23-8b/crit_val_correlation.png}
+    \end{subfigure}
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Prompt_code/plots/granite-3.3-8b-instruct/crit_val_correlation.png}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Prompt_code/plots/internlm3-8b-instruct/crit_val_correlation.png}
+    \end{subfigure}
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Prompt_code/plots/meta-llama-3.1-8B-instruct/crit_val_correlation.png}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Prompt_code/plots/ministral-8b-instruct-2410/crit_val_correlation.png}
+    \end{subfigure}
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Prompt_code/plots/qwen-3-8b-instruct/crit_val_correlation.png}
+    \end{subfigure}
+\end{figure}
+
+\newpage
+Wyniki autorów.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{./article_data/cross_corr.png}
+\end{figure}
+
+Wartości korelacji mają wartości bezwzględne poniżej 0.4, pomijając kwestionariusz SSCS, dla które zaobserowano wysokie wyniki. \\
+Wysokie wyniki dla SSCS pokrywają się z poprzenimi badaniami. Dla innych kwestionariuszy wartości są bliższe zeru, co jest znaczącą różnicą.
+
+\section{Wnioski}
+Jakość odpowiedzi może budzić niepokój z uwagi na wartości miar walidujących jakość testów. Mając jednak świadomość niezawodności kwestionariuszy, musimy stwierdzić winę w odpowiedziach modeli. \\
+Odpowiedzi modeli różnią się od tych ludzkich pod względem dystrybucji, co pokazuję ich słabość w odzworowywaniu ludzkich odpowiedzi. Występują korelacje między cechami poza cechą neurotyzmu, co nie zgadza się z prawdziwymi wynikami. \\
+Na podstawie otrzymanych wynik możemy stwierdzić niezdolność LLM do symulowania ludzkich zachowań psychologicznych. Obecnie modele nie nadają się do symulowania i pomimo zmiany opisów osób nie osiągnięto lepszych rezultatów. Potwierdza to naszą tezę. \\
+Analizując wyniki poszczególnych modeli, zauważyć można różnice zarówno w dystrybucji jak i korelacjach odpowiedzi. Wnioskujemy z tego, że pochodzenie modelu wpływa na ich wyniki w testach psychologicznych. Zgadza się to z naszą tezą.
 
 \section{Future works}
 W najbliższych tygodniach planowane jest zwiększenie liczby zgromadzonych odpowiedzi oraz rozszerzenie danych wejściowych o elementy interakcji między personami, realizowane w formie dialogów. 
 Taki zabieg mógłby wprowadzić dodatkową warstwę emocjonalną oraz złożoność psychospołeczną do opisów, co potencjalnie wpłynęłoby na bardziej realistyczne i wielowymiarowe zachowania generowane przez modele.\\
-Dodatkowo zakładane jest przygotowanie artykułu naukowego podsumowującego wyniki przeprowadzonych badań. Proces tworzenia publikacji będzie prowadzony zespołowo, angażując wszystkich członków zespołu. \\
+Proces dalszej pracy, będzie podzielony tak jak poprzednio: Hubert Sobociński - promptowanie i przygotowanie danych z wyników, Paweł Pozorski - analiza wyników, Paweł Florek - przygotowanie wizualizacji i raportu.
 
 W ramach dalszych badań proponujemy wykorzystanie bardziej zaawansowanych modeli językowych dostępnych na rynku oraz zastosowanie wydajniejszego sprzętu obliczeniowego. Pozwoli to na poprawę jakości generowanych odpowiedzi oraz znaczące skrócenie czasu ich pozyskiwania, co z kolei umożliwi zwiększenie wielkości próby badawczej.
 
