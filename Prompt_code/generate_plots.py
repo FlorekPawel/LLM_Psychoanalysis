@@ -47,7 +47,7 @@ def generate_distribution_plots(result_path, model_name):
                     va="bottom",
                     fontsize=8,
                 )
-        fig.savefig(os.path.join(f"plots/{model_name}", f"{name}_distribution.png"))
+        fig.savefig(os.path.join(f"./Prompt_code/plots/{model_name}", f"{name}_distribution.png"))
         plt.close()
 
     model = model_name.replace("-", " ")
@@ -109,7 +109,7 @@ def generate_reliability_coeff_plots(result_path, model_name):
                     va="bottom",
                     fontsize=8,
                 )
-        fig.savefig(os.path.join(f"plots/{model_name}", f"{name}_reliability.png"))
+        fig.savefig(os.path.join(f"./Prompt_code/plots/{model_name}", f"{name}_reliability.png"))
         plt.close()
 
     model = model_name.replace("-", " ")
@@ -149,11 +149,12 @@ def generate_correlation_plots(result_path, model_name):
             vmin=-1,
             vmax=1,
         )
+        plt.gca().invert_xaxis()
         plt.title(f"{name.upper()} traits correlation for {model}")
         plt.ylabel("")
         plt.tight_layout()
 
-        plt.savefig(os.path.join(f"plots/{model_name}", f"{name}_correlation.png"))
+        plt.savefig(os.path.join(f"./Prompt_code/plots/{model_name}", f"{name}_correlation.png"))
         plt.close()
 
     model = model_name.replace("-", " ")
@@ -190,15 +191,16 @@ def generate_crit_val_plot(result_path, model_name):
     )
     plt.title(f"Criterion validity correlations for {model}")
     plt.tight_layout()
+    plt.gca().invert_xaxis()
     plt.ylabel("Constructs")
     plt.xlabel("Big Five Traits")
-    plt.savefig(os.path.join(f"plots/{model_name}", f"crit_val_correlation.png"))
+    plt.savefig(os.path.join(f"./Prompt_code/plots/{model_name}", f"crit_val_correlation.png"))
     plt.close()
 
 
 def main():
-    for model_name in os.listdir("persona_results/"):
-        results_path = os.path.join("persona_results", model_name, "results")
+    for model_name in os.listdir("./Prompt_code/persona_results"):
+        results_path = os.path.join("./Prompt_code/persona_results", model_name, "results")
         os.makedirs(os.path.join("plots", model_name), exist_ok=True)
 
         generate_distribution_plots(results_path, model_name)

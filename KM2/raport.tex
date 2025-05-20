@@ -5,6 +5,7 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{subcaption}
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
@@ -59,6 +60,14 @@ Przyspieszony rozwój dużych modeli językowych (LLM) w ciągu ostatnich kilku 
 aspektów ludzkiego funkcjonowania. Jednym z ważnych kierunków takich badań jest sprawdzenie, w jakim stopniu takie modele mogą replikować ludzkie zachowania 
 psychologiczne - w sposób spójny, powtarzalny i zgodny z ustaleniami psychometrii. Poniższe badanie było inspirowane pracą Petrova, Serapio-Garcíi i 
 Rentfrowa (2024), w której autorzy przetestowali modele LLM pod kątem ich zdolności psychologicznych przy użyciu standardowych narzędzi diagnostycznych.
+
+Jeśli LLM-y potrafiłyby wiernie symulować profile psychologiczne ludzi, mogłyby stać się bardzo przydatnym narzędziem w badaniach społecznych, 
+pozwalając na przeprowadzanie wstępnych eksperymentów za ułamek kosztów tradycyjnych badań. Mogłyby także dostarczać dodatkowych dowodów potwierdzających 
+konkretne hipotezy (jeżeli model daje taki sam wynik jak ludzie to mam większą pewność) i umożliwiać analizowanie trudnych do uzyskania zestawów danych.
+Jednym z najbardziej istotnych zastosowań LLM-ów byłoby tworzenie symulacji opartej na agentach, modelujących różne środowiska, takie jak media społecznościowe, 
+organizacje lub większe społeczności. Takie symulacje mogłyby działać jako „piaskownice behawioralne”, w których można testować wpływ różnych algorytmów, 
+polityk krajowych czy różnych systemów przed ich wdrożeniem.
+
 
 W naszym badaniu poszliśmy o krok dalej i porównaliśmy odpowiedzi sześciu różnych modeli językowych z wybranymi kwestionariuszami psychometrycznymi. 
 Dane zostały zebrane z zestawu sztucznych profili osób, dzięki czemu możliwe było kontrolowanie symulacji różnych odpowiedzi. Wykorzystano innych danych względem tych użytych w przywołanym artykule, aby zbadać czy miały one wpływ na jakość odpowiedzi.
@@ -147,12 +156,96 @@ Dodatkowo, przeanalizowano korelacje między odpowiedziami udzielonymi przez mod
 Wybrano taki cel by przetestować LLM w tego typu testach, a następnie przeanaliwać wyniki pod kątem zdolności do odwzorowywania
 
 \section{Wyniki eksperymentu}
+Wyniki naszego eksperymentu będziemy porównywać z wynikami ludzkimi oraz modeli autorów przytaczanego artykułu, których wykresy są zaczerpnięte z artykułu. 
+W wynikach skupimy się na BFI z uwagi na to, że był głównie wykorzystany w artykule i będziemy mieli oczywiste porównanie wyników obu eksperymentów.
+
+Przeanalizujemy na początek dystrybucje odpowiedzi modeli dla poszczególnych kwestionariuszy i cech. Porównanie wyników modeli dla kwestionariusza BFI oraz ludzkich odpowiedzi przedstawia się następująco:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/aya-23-8b/bfi_distribution.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/granite-3.3-8b-instruct/bfi_distribution.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/internlm3-8b-instruct/bfi_distribution.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/meta-llama-3.1-8B-instruct/bfi_distribution.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/ministral-8b-instruct-2410/bfi_distribution.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/qwen-3-8b-instruct/bfi_distribution.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{./article_data/human_distr.png}
+    \caption{Wyniki twórców}
+\end{figure}
+
+Zauważyć można różne dystrybucje w przypadku różnych modeli. Pare modeli ma podobny rozkład w tych samym atrybutach, jednak brak takich, które w każdym atrybucie miałyby taki sam rozkład odpowiedzi. 
+
+Porównując z odpowiedziami ludzi, ciężko o podobieństwo i w przeważającej większości dystrybucje bardzo różnia się. \\ \\ 
+
+Ważną kwestią jest porównianie korelacji odpowiedzi dla atrybutów na tle korelacji w odpowiedziach ludzi. Pokaże to, czy modele są wyuczone zależności, które nie występują w rzeczywistości.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/aya-23-8b/bfi_correlation.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/granite-3.3-8b-instruct/bfi_correlation.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/internlm3-8b-instruct/bfi_correlation.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/meta-llama-3.1-8B-instruct/bfi_correlation.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/ministral-8b-instruct-2410/bfi_correlation.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{../Prompt_code/plots/qwen-3-8b-instruct/bfi_correlation.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7 \linewidth]{./article_data/all_corr.png}
+    \caption{Wyniki twórców}
+\end{figure}
+W niektórych modelach (np. Llama) występują korelacje pomiędzy neurotyzmem a innymi cechami, tak samo jak w przypadku przytaczanego artykułu. W paru innych pojawiły się korelacje związane z cechą sumienności, która nie występowała wcześniej.  
+
 
 \section{Future works}
-W najbliższych tygodniach planowane jest zwiększenie liczby zgromadzonych odpowiedzi oraz przygotowanie artykułu naukowego podsumowującego wyniki przeprowadzonych badań. Proces tworzenia publikacji będzie prowadzony zespołowo, angażując wszystkich członków zespołu. \\
+W najbliższych tygodniach planowane jest zwiększenie liczby zgromadzonych odpowiedzi oraz rozszerzenie danych wejściowych o elementy interakcji między personami, realizowane w formie dialogów. 
+Taki zabieg mógłby wprowadzić dodatkową warstwę emocjonalną oraz złożoność psychospołeczną do opisów, co potencjalnie wpłynęłoby na bardziej realistyczne i wielowymiarowe zachowania generowane przez modele.\\
+Dodatkowo zakładane jest przygotowanie artykułu naukowego podsumowującego wyniki przeprowadzonych badań. Proces tworzenia publikacji będzie prowadzony zespołowo, angażując wszystkich członków zespołu. \\
 
 W ramach dalszych badań proponujemy wykorzystanie bardziej zaawansowanych modeli językowych dostępnych na rynku oraz zastosowanie wydajniejszego sprzętu obliczeniowego. Pozwoli to na poprawę jakości generowanych odpowiedzi oraz znaczące skrócenie czasu ich pozyskiwania, co z kolei umożliwi zwiększenie wielkości próby badawczej.
-
-Ponadto, rozważane jest rozszerzenie danych wejściowych o elementy interakcji między personami, realizowane w formie dialogów. Taki zabieg mógłby wprowadzić dodatkową warstwę emocjonalną oraz złożoność psychospołeczną do opisów, co potencjalnie wpłynęłoby na bardziej realistyczne i wielowymiarowe zachowania generowane przez modele.
 
 \end{document}
